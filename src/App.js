@@ -13,7 +13,7 @@ function App() {
       .orderBy("timestamp", "desc")
       .onSnapshot((snapshot) => {
         //console.log(snapshot.docs.map(doc => doc.data()));
-        setTodos(snapshot.docs.map((doc) => doc.data().todo));
+        setTodos(snapshot.docs.map(doc => ({id: doc.id, todo: doc.data().todo})));
       });
   }, []);
 
@@ -30,7 +30,7 @@ function App() {
       <h1>Hello Sayeed!</h1>
       <form>
         <FormControl>
-          <InputLabel>? Write a Todo</InputLabel>
+          <InputLabel>✅ Write a Todo</InputLabel>
           <Input
             value={input}
             onChange={(event) => setInput(event.target.value)}
@@ -49,8 +49,8 @@ function App() {
       </form>
 
       <ul>
-        {todos.map((todo) => (
-          <Todo text={todo} />
+        {todos.map(todo => (
+          <Todo todo={todo}/>
           // <li>{todo}</li>
         ))}
       </ul>
